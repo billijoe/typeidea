@@ -6,7 +6,9 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'typeidea.settings')
+    # 读取系统环境中【typeidea_profile】变量来控制不同的变量文件 develop/product
+    profile = os.environ.get("TYPEIDEA_PROFILE", "develop")
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'typeidea.settings.%s' % profile)
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
